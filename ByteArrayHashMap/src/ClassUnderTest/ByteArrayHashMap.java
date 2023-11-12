@@ -14,7 +14,7 @@ public class ByteArrayHashMap<T> {
 	 * by either of the constructors with arguments.
 	 * MUST be a power of two <= 1<<30.
 	 */
-	static final int MAXIMUM_CAPACITY = 1 << 30;
+	static final int MAXIMUM_CAPACITY = 1 << 25;
 
 
 	static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -246,6 +246,13 @@ public class ByteArrayHashMap<T> {
 
 		return e;
 	}
+	
+	public static void main(String[] argc) {
+		System.gc();
+		ByteArrayHashMap<String> hashMap = new ByteArrayHashMap<>(1<<25);
+		System.out.println(hashMap.table.length);
+		hashMap = null;
+	}
 
 
 	protected static class Entry<S> {
@@ -326,5 +333,5 @@ public class ByteArrayHashMap<T> {
 		return h & (length - 1);
 	}
 
-
+	
 }

@@ -248,10 +248,14 @@ public class ByteArrayHashMap<T> {
 	}
 	
 	public static void main(String[] argc) {
-		System.gc();
-		ByteArrayHashMap<String> hashMap = new ByteArrayHashMap<>(27, 0);
-		System.out.println(hashMap.loadFactor);
-		hashMap = null;
+		//System.gc();
+		
+		ByteArrayHashMap<String> hashMap = new ByteArrayHashMap<String>(27);
+		byte[] key = {1, 2, 3, 4, 5};
+		String value = null;
+		hashMap.put(key, value);
+		
+		
 	}
 
 

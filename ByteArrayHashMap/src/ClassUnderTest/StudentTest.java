@@ -23,6 +23,7 @@ class StudentTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		
 	}
 
 	@BeforeEach
@@ -34,10 +35,41 @@ class StudentTest {
 	}
 
 	@Test
-	void testByteArrayHashMapIntFloat() {
-		fail("Not yet implemented");
+	void testByteArrayHashMapIntNegativeFloatBCC() {
+		Exception exception = assertThrows(Exception.class, () -> b = new ByteArrayHashMap(-5, 0.4f));
+		assertEquals("Illegal initial capacity: " + -5, exception.getMessage());
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"-5.7f, 0, Float.NaN"})
+	void testByteArrayHashMapIntFloatErrorBCC(float loadFactor) {
+		Exception exception = assertThrows(Exception.class, () -> b = new ByteArrayHashMap(27, -5.7f));
+		assertEquals("Illegal load factor: " +
+				 loadFactor, exception.getMessage());
+	}
+	
+	
+	@ParameterizedTest
+	@CsvSource({"27, 0.4f, 32, 0.4f", "0, 0.4f, 1, 0.4f", "33554432, 0.4f, 33554432, 0.4f"
+		, "40000000, 0.4f, 33554432, 0.4f"})
+	void testByteArrayHashMapIntFloatBCC(int capacity, float loadFactor, int expectedCapacity,
+			float expectedLoadFactor) {
+		b = new ByteArrayHashMap(capacity, loadFactor);
+		assertEquals(b.table.length, expectedCapacity, "ByteArrayHashMap non creata con la capacity specificata: " 
+				+ b.table.length + " al posto di " + expectedCapacity);
+		assertEquals(b.loadFactor, expectedLoadFactor, "ByteArrayHashMap non creata con il load factor specificato: " 
+				+ b.loadFactor + " al posto di " + expectedLoadFactor);
 	}
 
+	// Test Costruttore con solo int in ingresso: scelte le classi di equivalenza,
+	// che sono {capacity < 0}, {0 <= capacity <= MAX_CAPACITY}, {capacity > 0}
+	// dalle quali ci aspettiamo un comportamento diverso (Funcionality-based)
+	// essendo un solo input basta valutare un caso di test per ogni classe di appartenenza.
+	// In questo caso potremmo valutare anche i valori limite, ma non sono necessari
+	// in quanto non ci aspettiamo comportamenti speciali per i valori limite
+	// degli intervalli a livello funzionale, ma possiamo comunque aggiungerli
+	// in questo caso essendo utile testare i limiti del sistema e garantire 
+	// che il software gestisca correttamente situazioni particolari
 	@Test
 	void testByteArrayHashMapIntNegative() {
 		Exception exception = assertThrows(Exception.class, () -> b = new ByteArrayHashMap(-5));
@@ -45,12 +77,14 @@ class StudentTest {
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"0, 1","27, 32","33554434, 33554432"})
+	@CsvSource({"0, 1","27, 32","33554432, 33554432", "40000000, 33554432"})
 	void testByteArrayHashMapInt(int capacity, int expectedCapacity) {
 		b = new ByteArrayHashMap(capacity);
 		assertEquals(expectedCapacity, b.table.length, "ByteArrayHashMap non creata con la capacity specificata");
 	}
 
+	// Test Costruttore di default: in questo caso basta accertarsi che sia inizializzato
+	// correttamente ai valori di default non avendo l'input
 	@Test
 	void testByteArrayHashMap() {
 		b = new ByteArrayHashMap();
@@ -58,18 +92,24 @@ class StudentTest {
 				b.table.length, "ByteArrayHashMap non creato con la capacity di default");
 		assertEquals(0.75f, 
 				b.loadFactor, "ByteArrayHashMap non creato con il loadFactor di default");
-		
 	}
 
 	@Test
 	void testSize() {
-		fail("Not yet implemented");
+		b = new ByteArrayHashMap<String>();
+		byte[] key1 = {1, 2, 3, 4, 5};
+		String value1 = "test";
+		b.put(key1, value1);
+		byte[] key2 = {1, 2, 3, 4, 6};
+		String value2 = "test2";
+		b.put(key2, value2);
+		assertEquals(b.size(), 2);
 	}
-
+	
 	@Test
 	void testIsEmpty() {
 		b = new ByteArrayHashMap();
-		System.out.println("Verifichiamo che ByteArrayHashMap sia vuoto");
+		//System.out.println("Verifichiamo che ByteArrayHashMap sia vuoto");
 		assertTrue(b.isEmpty(), "Il ByteArrayHashMap non è vuoto");
 	}
 	
@@ -79,7 +119,7 @@ class StudentTest {
 		byte[] key = {1, 2, 3, 4, 5};
 		String value = "test";
 		b.put(key, value);
-		System.out.println("Verifichiamo che ByteArrayHashMap non sia vuoto");
+		//System.out.println("Verifichiamo che ByteArrayHashMap non sia vuoto");
 		assertFalse(b.isEmpty(), "Il ByteArrayHashMap è vuoto");
 	}
 	

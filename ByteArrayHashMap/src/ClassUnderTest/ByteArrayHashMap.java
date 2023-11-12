@@ -249,8 +249,8 @@ public class ByteArrayHashMap<T> {
 	
 	public static void main(String[] argc) {
 		System.gc();
-		ByteArrayHashMap<String> hashMap = new ByteArrayHashMap<>(1<<25);
-		System.out.println(hashMap.table.length);
+		ByteArrayHashMap<String> hashMap = new ByteArrayHashMap<>(27, 0);
+		System.out.println(hashMap.loadFactor);
 		hashMap = null;
 	}
 

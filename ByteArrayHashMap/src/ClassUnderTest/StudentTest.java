@@ -25,23 +25,6 @@ class StudentTest {
 	
 	ByteArrayHashMap b;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-		
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	// Test Costruttore con due parametri con approccio Pair-Wise: vengono valutate
 	// tutte le possibili combinazoni di input, i casi di test sono 20 (5*4)
 	@ParameterizedTest

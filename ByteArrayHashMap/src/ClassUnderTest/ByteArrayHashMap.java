@@ -247,13 +247,6 @@ public class ByteArrayHashMap<T> {
 		return e;
 	}
 	
-	/*public static void main(String[] argv) {
-		ByteArrayHashMap<String> b = new ByteArrayHashMap<String>(27, 0.7f);
-		byte[] key1 = {1, 2, 3};
-        b.put(key1, "test1");
-        ByteArrayHashMap<String> copy = b.duplicate();
-        System.out.println(b.table[0] + " " + copy.loadFactor + " " + copy.size + " " + copy.table[0]);
-	}*/
 	
 	protected static class Entry<S> {
 		public final byte[] key;

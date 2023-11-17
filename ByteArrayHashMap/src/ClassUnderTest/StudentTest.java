@@ -20,8 +20,7 @@ import org.junit.runner.RunWith;
 import static org.hamcrest.MatcherAssert.assertThat; 
 import static org.hamcrest.Matchers.*;
 
-@RunWith(Theories.class)
-class StudentTest {
+public class StudentTest {
 	
 	ByteArrayHashMap b;
 
@@ -38,24 +37,6 @@ class StudentTest {
 	void testByteArrayHashMapIntNegativeFloatNaNPairWise() {
 		Exception exception = assertThrows(Exception.class, () -> b = new ByteArrayHashMap(-5, Float.NaN));
 		assertEquals("Illegal initial capacity: " + -5, exception.getMessage());
-	}
-	
-	@DataPoints("exceptionLoadFactor")
-	static float[] exceptionLoadFactor() {
-		return new float[] {-5.7f, 0, Float.NaN};
-	}
-	
-	@DataPoints("validCapacity")
-	static int[] validCapacity() {
-		return new int[] {0, 27, 33554432, 40000000};
-	}
-	
-	@Theory
-	void testByteArrayHashMapIntFloatErrorPairWise(@FromDataPoints("exceptionLoadFactor") float loadFactor,
-			@FromDataPoints("validCapacity") int capacity) {
-		Exception exception = assertThrows(Exception.class, () -> b = new ByteArrayHashMap(capacity, loadFactor));
-		assertEquals("Illegal load factor: " +
-				 loadFactor, exception.getMessage());
 	}
 	
 	@ParameterizedTest
@@ -197,7 +178,7 @@ class StudentTest {
 		System.arraycopy(key, offset, k, 0, len);
 		b.put(k, value);
 		assertEquals(value, b.get(key, offset, len), "La Get non ha funzionato: ci si aspettava "
-				+ value + " e si è ottenuto "+ b.get(key, 3, 2));
+				+ value + " e si è ottenuto "+ b.get(key, offset, len));
 	}
 
 	// Test Get con un solo input: in questo caso, poiché non abbiamo vincoli sui 
@@ -222,6 +203,18 @@ class StudentTest {
 		byte[] key = {1, 2, 3, 4, 5};
 		assertNull(b.get(key), "La Get non ha funzionato: si è ottenuto il valore " +
 				b.get(key) + " al posto di null");
+	}
+	
+	@Test
+	void testGetByteArrayNotPresentMultipleKey() {
+		b = new ByteArrayHashMap<String>();
+		byte[] key = {1, 2, 3, 4, 5};
+		b.put(key, "test");
+		byte[] key1 = {1, 2, 3, 4};
+		b.put(key1, "test1");
+		byte[] key2 = {1, 2, 3, 4, 5, 6};
+		assertNull(b.get(key2), "La Get non ha funzionato: si è ottenuto il valore " +
+				b.get(key2) + " al posto di null");
 	}
 	
 	@Test
@@ -256,6 +249,17 @@ class StudentTest {
 		b = new ByteArrayHashMap<String>();
 		byte[] key1 = {1};
 		assertFalse(b.containsKey(key1), "Errore containsKey: la chiave è presente");
+	}
+	
+	@Test
+	void testContainsKeyNotPresentMultipleKeys() {
+		b = new ByteArrayHashMap<String>();
+		byte[] key = {1, 2, 3, 4, 5};
+		b.put(key, "test");
+		byte[] key1 = {1, 2, 3, 4};
+		b.put(key1, "test1");
+		byte[] key2 = {1, 2, 3, 4, 5, 6};
+		assertFalse(b.containsKey(key2), "Errore containsKey: la chiave è presente");
 	}
 
 	// Non avendo anche qui input, verifichiamo se il valore è stato inserito correttamente
@@ -438,6 +442,17 @@ class StudentTest {
 	void testRemoveEntryForKeyNotPresent() {
 		b = new ByteArrayHashMap<String>(27, 0.7f);
 		assertNull(b.removeEntryForKey("key1".getBytes()));
+	}
+	
+	@Test
+	void testRemoveEntryForKeyNotPresentMultipleKeys() {
+		b = new ByteArrayHashMap<String>(27, 0.7f);
+		byte[] key = {1, 2, 3, 4, 5};
+		b.put(key, "test");
+		byte[] key1 = {1, 2, 3, 4};
+		b.put(key1, "test1");
+		byte[] key2 = {1, 2, 3, 4, 5, 6};
+		assertNull(b.removeEntryForKey(key2));
 	}
 
 	// I test per AddEntry e CreateEntry sono molto simili, poiché prendono gli stessi

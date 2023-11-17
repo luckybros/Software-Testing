@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>FontInfo.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">randoop.level01 (3) (14 nov 2023 14:55:03)</a> &gt; <a href="../../index.html" class="el_group">FontInfo</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ClassUnderTest</a> &gt; <span class="el_source">FontInfo.java</span></div><h1>FontInfo.java</h1><pre class="source lang-java linenums">package ClassUnderTest;
+
+import java.awt.Font;
+import java.io.Serializable;
+
+public class FontInfo implements Cloneable, Serializable {
+	private static final long serialVersionUID = 1L;
+
+	public interface IPropertyNames {
+		String FAMILY = &quot;family&quot;;
+		String IS_BOLD = &quot;isBold&quot;;
+		String IS_ITALIC = &quot;isItalic&quot;;
+		String SIZE = &quot;size&quot;;
+	}
+
+<span class="fc" id="L16">	private static String DEFAULT_FAMILY = &quot;Monospaced&quot;;</span>
+
+	private String _familyName;
+	private boolean _isBold;
+	private boolean _isItalic;
+	private int _size;
+
+	public FontInfo() {
+<span class="fc" id="L24">		super();</span>
+<span class="fc" id="L25">		setFamily(DEFAULT_FAMILY);</span>
+<span class="fc" id="L26">		setSize(12);</span>
+<span class="fc" id="L27">	}</span>
+
+	public FontInfo(Font font) {
+<span class="fc" id="L30">		super();</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">		if (font == null) {</span>
+<span class="fc" id="L32">			throw new IllegalArgumentException(&quot;Null Font passed&quot;);</span>
+		}
+<span class="fc" id="L34">		setFont(font);</span>
+<span class="fc" id="L35">	}</span>
+
+	/**
+	 * Return a copy of this object.
+	 */
+	public Object clone() {
+		try {
+<span class="fc" id="L42">			return super.clone();</span>
+<span class="nc" id="L43">		} catch (CloneNotSupportedException ex) {</span>
+<span class="nc" id="L44">			throw new InternalError(ex.getMessage()); // Impossible.</span>
+		}
+	}
+
+	public String getFamily() {
+<span class="fc" id="L49">		return _familyName;</span>
+	}
+
+	public void setFamily(String value) {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">		_familyName = value != null ? value : DEFAULT_FAMILY;</span>
+<span class="fc" id="L54">	}</span>
+
+	public boolean isBold() {
+<span class="fc" id="L57">		return _isBold;</span>
+	}
+
+	public void setIsBold(boolean value) {
+<span class="fc" id="L61">		_isBold = value;</span>
+<span class="fc" id="L62">	}</span>
+
+	public boolean isItalic() {
+<span class="fc" id="L65">		return _isItalic;</span>
+	}
+
+	public void setIsItalic(boolean value) {
+<span class="fc" id="L69">		_isItalic = value;</span>
+<span class="fc" id="L70">	}</span>
+
+	public int getSize() {
+<span class="fc" id="L73">		return _size;</span>
+	}
+
+	public void setSize(int value) {
+<span class="fc" id="L77">		_size = value;</span>
+<span class="fc" id="L78">	}</span>
+
+	public void setFont(Font font) throws IllegalArgumentException {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">		if (font == null) {</span>
+<span class="fc" id="L82">			throw new IllegalArgumentException(&quot;Null Font passed&quot;);</span>
+		}
+<span class="fc" id="L84">		_familyName = font.getFamily();</span>
+<span class="fc" id="L85">		_isBold = font.isBold();</span>
+<span class="fc" id="L86">		_isItalic = font.isItalic();</span>
+<span class="fc" id="L87">		_size = font.getSize();</span>
+<span class="fc" id="L88">	}</span>
+
+	public boolean doesFontMatch(Font font) {
+<span class="fc bfc" id="L91" title="All 2 branches covered.">		if (font == null) {</span>
+<span class="fc" id="L92">			return false;</span>
+		}
+<span class="fc bfc" id="L94" title="All 2 branches covered.">		return font.getFamily().equals(_familyName)</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">				&amp;&amp; font.getSize() == getSize()</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">				&amp;&amp; font.getStyle() == generateStyle();</span>
+	}
+
+	public int generateStyle() {
+<span class="fc" id="L100">		int style = 0;</span>
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">		if (!_isBold &amp;&amp; !_isItalic) {</span>
+<span class="fc" id="L102">			style = Font.PLAIN;</span>
+<span class="fc" id="L103">		} else {</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">			if (_isBold) {</span>
+<span class="fc" id="L105">				style |= Font.BOLD;</span>
+			}
+<span class="fc bfc" id="L107" title="All 2 branches covered.">			if (_isItalic) {</span>
+<span class="fc" id="L108">				style |= Font.ITALIC;</span>
+			}
+		}
+<span class="fc" id="L111">		return style;</span>
+	}
+
+	public Font createFont() {
+<span class="fc" id="L115">		return new Font(_familyName, generateStyle(), _size);</span>
+	}
+
+	// i18n ? What is this used for?
+	public String toString() {
+<span class="fc" id="L120">		StringBuffer buf = new StringBuffer();</span>
+<span class="fc" id="L121">		buf.append(_familyName).append(&quot;, &quot; + _size);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		if (_isBold) {</span>
+<span class="fc" id="L123">			buf.append(&quot;, bold&quot;);</span>
+		}
+<span class="fc bfc" id="L125" title="All 2 branches covered.">		if (_isItalic) {</span>
+<span class="fc" id="L126">			buf.append(&quot;, italic&quot;);</span>
+		}
+<span class="fc" id="L128">		return buf.toString();</span>
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+<span class="nc" id="L136">		final int PRIME = 31;</span>
+<span class="nc" id="L137">		int result = 1;</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">		result = PRIME * result + ((_familyName == null) ? 0 : _familyName.hashCode());</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">		result = PRIME * result + (_isBold ? 1231 : 1237);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">		result = PRIME * result + (_isItalic ? 1231 : 1237);</span>
+<span class="nc" id="L141">		result = PRIME * result + _size;</span>
+<span class="nc" id="L142">		return result;</span>
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">		if (this == obj)</span>
+<span class="nc" id="L151">			return true;</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">		if (obj == null)</span>
+<span class="fc" id="L153">			return false;</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">		if (getClass() != obj.getClass())</span>
+<span class="fc" id="L155">			return false;</span>
+<span class="fc" id="L156">		final FontInfo other = (FontInfo) obj;</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">		if (_familyName == null) {</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">			if (other._familyName != null)</span>
+<span class="nc" id="L159">				return false;</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">		} else if (!_familyName.equals(other._familyName))</span>
+<span class="fc" id="L161">			return false;</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">		if (_isBold != other._isBold)</span>
+<span class="fc" id="L163">			return false;</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">		if (_isItalic != other._isItalic)</span>
+<span class="nc" id="L165">			return false;</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">		if (_size != other._size)</span>
+<span class="fc" id="L167">			return false;</span>
+<span class="nc" id="L168">		return true;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>randoop.level01 (3) (14 nov 2023 14:55:03)</div></body></html>

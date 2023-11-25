@@ -167,4 +167,6 @@ public class FontInfo implements Cloneable, Serializable {
 			return false;
 		return true;
 	}
+	
+
 }

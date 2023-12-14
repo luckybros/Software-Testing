@@ -1,3 +1,6 @@
+// Inizio: 14/12/2023 alle ore 22:45
+// Fine: 14/12/2023 alle ore 23:15
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -30,30 +33,50 @@ public class InflectionTest {
 	}
 
 	@Test(timeout = 4000)
-	public void test_6_1525() throws Throwable {
+	public void test_6_1525_1() throws Throwable {
 		// verify replace() method with case sensitive matching
 		Inflection inflectionCaseSensitive = new Inflection("person", "people", false);
 		assertEquals(inflectionCaseSensitive.replace("person"), "people");
+	}
+
+	@Test(timeout = 4000)
+	public void test_6_1525_2() throws Throwable {
+		// verify replace() method with case sensitive matching
+		Inflection inflectionCaseSensitive = new Inflection("person", "people", false);
 		assertNotEquals(inflectionCaseSensitive.replace("Person"), "people");
 	}
 
 	@Test(timeout = 4000)
-	public void test_7_1526() throws Throwable {
+	public void test_7_1526_1() throws Throwable {
 		assertEquals(Inflection.pluralize("erny"),"ernies");
+	}
+
+	@Test(timeout = 4000)
+	public void test_7_1526_2() throws Throwable {
 		assertEquals(Inflection.pluralize("irny"),"irnies");
 	}
 
 	@Test(timeout = 4000)
-	public void test_8_1527() throws Throwable {
+	public void test_8_1527_1() throws Throwable {
 		// verify replace() method with case insensitive matching
 		Inflection inflectionCaseInsensitive = new Inflection("person", "people", true);
 		assertEquals(inflectionCaseInsensitive.replace("person"), "people");
+	}
+
+	@Test(timeout = 4000)
+	public void test_8_1527_2() throws Throwable {
+		// verify replace() method with case insensitive matching
+		Inflection inflectionCaseInsensitive = new Inflection("person", "people", true);
 		assertEquals(inflectionCaseInsensitive.replace("Person"), "people");
 	}
 
 	@Test(timeout = 4000)
-	public void test_9_1528() throws Throwable {
+	public void test_9_1528_1() throws Throwable {
 		assertEquals(Inflection.pluralize("orny"),"ornies");
+	}
+
+	@Test(timeout = 4000)
+	public void test_9_1528_2() throws Throwable {
 		assertEquals(Inflection.pluralize("urny"),"urnies");
 	}
 
@@ -68,16 +91,26 @@ public class InflectionTest {
 	}
 
 	@Test(timeout = 4000)
-	public void test_12_1532() throws Throwable {
+	public void test_12_1532_1() throws Throwable {
 		// case-insensitive uncountable matching
 		assertFalse(Inflection.isUncountable("cow"));
+	}
+
+	@Test(timeout = 4000)
+	public void test_12_1532_2() throws Throwable {
+		// case-insensitive uncountable matching
 		assertFalse(Inflection.isUncountable("Cow"));
 	}
 
 	@Test(timeout = 4000)
-	public void test_13_1533() throws Throwable {
+	public void test_13_1533_1() throws Throwable {
 		// case-insensitive uncountable matching
 		assertTrue(Inflection.isUncountable("sheep"));
+	}
+
+	@Test(timeout = 4000)
+	public void test_13_1533_2() throws Throwable {
+		// case-insensitive uncountable matching
 		assertTrue(Inflection.isUncountable("Sheep"));
 	}
 
@@ -88,9 +121,14 @@ public class InflectionTest {
 	}
 
 	@Test(timeout = 4000)
-	public void test_15_1536() throws Throwable {
+	public void test_15_1536_1() throws Throwable {
 		// case-insensitive uncountable matching: make sure entire string is checked
 		assertFalse(Inflection.isUncountable("xsheepx"));
+	}
+
+	@Test(timeout = 4000)
+	public void test_15_1536_2() throws Throwable {
+		// case-insensitive uncountable matching: make sure entire string is checked
 		assertFalse(Inflection.isUncountable("xSheepx"));
 	}
 
@@ -116,9 +154,14 @@ public class InflectionTest {
 	}
 
 	@Test(timeout = 4000)
-	public void test_19_1544() throws Throwable {
+	public void test_19_1544_1() throws Throwable {
 		// check if '$' of regular expression is still present
 		assertEquals(Inflection.pluralize("query"), "queries");
+	}
+
+	@Test(timeout = 4000)
+	public void test_19_1544_2() throws Throwable {
+		// check if '$' of regular expression is still present
 		assertNotEquals(Inflection.pluralize("queryyyy"), "queriesyyy");
 	}
 
@@ -129,40 +172,65 @@ public class InflectionTest {
 	}
 
 	@Test(timeout = 4000)
-	public void test_21_1561() throws Throwable {
+	public void test_21_1561_1() throws Throwable {
 		// check regular expression handling for irregular cases (e.g. man -> men)
 		// only the last part of a word is checked
 		assertEquals(Inflection.pluralize("manman"), "manmen");
+	}
+	
+	@Test(timeout = 4000)
+	public void test_21_1561_2() throws Throwable {
+		// check regular expression handling for irregular cases (e.g. man -> men)
+		// only the last part of a word is checked
 		assertEquals(Inflection.singularize("menmen"), "menman");
 	}
 
 	@Test(timeout = 4000)
-	public void test_22_1599() throws Throwable {
+	public void test_22_1599_1() throws Throwable {
 		Inflection inflection = new Inflection("perSon");
 		assertEquals(inflection.match("person"), true);
+	}
+
+	@Test(timeout = 4000)
+	public void test_22_1599_2() throws Throwable {
+		Inflection inflection = new Inflection("perSon");
 		assertEquals(inflection.match("Person"), true);
 	}
 
 	@Test(timeout = 4000)
-	public void test_23_1600() throws Throwable {
+	public void test_23_1600_1() throws Throwable {
 		Inflection inflection = new Inflection("perSon","people");
 		assertEquals(inflection.match("person"), true);
+	}
+
+	@Test(timeout = 4000)
+	public void test_23_1600_2() throws Throwable {
+		Inflection inflection = new Inflection("perSon","people");
 		assertEquals(inflection.match("Person"), true);
 	}
 
 	@Test(timeout = 4000)
-	public void test_24_1601() throws Throwable {
+	public void test_24_1601_1() throws Throwable {
 		Inflection inflection = new Inflection("perSon","people",false);
 		assertEquals(inflection.match("person"), false);
+	}
+
+	@Test(timeout = 4000)
+	public void test_24_1601_2() throws Throwable {
+		Inflection inflection = new Inflection("perSon","people",false);
 		assertEquals(inflection.match("perSon"), true);
 	}
 
 	@Test(timeout = 4000)
-	public void test_25_1603() throws Throwable {
+	public void test_25_1603_1() throws Throwable {
 		Inflection inflection = new Inflection("ABCDEFGHIJKLMNOPQRSTUVWXYZ","ABCDEFGHIJKLMNOPQRSTUVWXYZs",true);
 		assertEquals(inflection.match("abcdefghijklmnopqrstuvwxyz"), true);
-		Inflection inflection2 = new Inflection("ABCDEFGHIJKLMNOPQRSTUVWXYZ","ABCDEFGHIJKLMNOPQRSTUVWXYZs",false);
-		assertEquals(inflection2.match("abcdefghijklmnopqrstuvwxyz"), false);
+	}
+
+	@Test(timeout = 4000)
+	public void test_25_1603_2() throws Throwable {
+		Inflection inflection = new Inflection("ABCDEFGHIJKLMNOPQRSTUVWXYZ","ABCDEFGHIJKLMNOPQRSTUVWXYZs",false);
+		assertEquals(inflection.match("abcdefghijklmnopqrstuvwxyz"), false);
 	}
 
 	@Test(timeout = 4000)

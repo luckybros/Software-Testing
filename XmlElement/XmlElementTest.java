@@ -3,15 +3,22 @@ import static org.junit.Assert.*;
 
 // Game: 1019
 public class XmlElementTest {
+	public static final int MAX_VALUE = 4000;	// per il magic number
 
-	@Test(timeout = 4000)
+	// assertion Roulette
+	@Test(timeout = MAX_VALUE)
 	public void test_1_1304() throws Throwable {
 		XmlElement e = new XmlElement("shit", "lol");
 		assertEquals("lol",e.getData());
+	}
+
+	@Test(timeout = MAX_VALUE)
+	public void test_1_1304_2() throws Throwable {
+		XmlElement e = new XmlElement("shit", "lol");
 		assertEquals("lol",((XmlElement)e.clone()).getData());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_2_1306() throws Throwable {
 		XmlElement foo = new XmlElement();
 		foo.addElement(new XmlElement("anus"));
@@ -19,7 +26,7 @@ public class XmlElementTest {
 		assertEquals(0,foo.count());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_3_1322() throws Throwable {
 		String name = "John";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -30,7 +37,7 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_4_1323() throws Throwable {
 		String name = "John";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -40,7 +47,7 @@ public class XmlElementTest {
 		assertEquals("Sheffield",obj.getAttribute("Adam"));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_5_1327() throws Throwable {
 		String name = "John";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -50,7 +57,7 @@ public class XmlElementTest {
 		assertEquals("York",obj.getAttribute("Nor","York"));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_6_1328() throws Throwable {
 		String name = "John";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -60,7 +67,7 @@ public class XmlElementTest {
 		assertEquals("York",obj.getAttribute("Nor","York"));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_7_1330() throws Throwable {
 		String name = "John";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -71,7 +78,7 @@ public class XmlElementTest {
 		assertEquals(hashtable,obj.getAttributes());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_8_1361() throws Throwable {
 		String name = "John";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -82,14 +89,14 @@ public class XmlElementTest {
 		assertEquals(null,obj.getData());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_9_1362() throws Throwable {
 		String name = "John";
 		XmlElement obj = new XmlElement(name);
 		assertEquals("John",obj.getName());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_10_1363() throws Throwable {
 		XmlElement e = new XmlElement();
 		XmlElement c = new XmlElement();
@@ -97,18 +104,24 @@ public class XmlElementTest {
 		assertEquals(e,c.parent);
 	}
 
-	@Test(timeout = 4000)
-	public void test_11_1364() throws Throwable {
+	// assertion Roulette
+	@Test(timeout = MAX_VALUE)
+	public void test_11_1364_1() throws Throwable {
 		XmlElement e = new XmlElement();
 		XmlElement c = new XmlElement();
-		XmlElement p = new XmlElement();
 		e.addElement(c);
 		assertEquals(e,c.parent);
+	}
+
+	@Test(timeout = MAX_VALUE)
+	public void test_11_1364_2() throws Throwable {
+		XmlElement e = new XmlElement();
+		XmlElement p = new XmlElement();
 		p.append(c);
 		assertEquals(p,c.parent);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_12_1365() throws Throwable {
 		String name = "John";
 		XmlElement obj = new XmlElement();
@@ -121,13 +134,18 @@ public class XmlElementTest {
 		assertEquals(false,obj.equals(obj1));
 	}
 
-	@Test(timeout = 4000)
-	public void test_13_1366() throws Throwable {
+	// assertion Roulette
+	@Test(timeout = MAX_VALUE)
+	public void test_13_1366_1() throws Throwable {
 		assertEquals(0,new XmlElement().attributes.size());
+	}
+
+	@Test(timeout = MAX_VALUE)
+	public void test_13_1366_2() throws Throwable {
 		assertEquals(0,new XmlElement("poop").attributes.size());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_14_1367() throws Throwable {
 		String alpha = "    ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+1234567890-={}[]:\"\\:|<>?,./~`    ";
 		XmlElement p = new XmlElement(alpha);
@@ -138,7 +156,7 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_15_1369() throws Throwable {
 		XmlElement e = new XmlElement("top");
 		XmlElement bottom = e.addSubElement("..middle.bottom");
@@ -147,7 +165,7 @@ public class XmlElementTest {
 		assertEquals(e,bottom.getParent().getParent());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_16_1370() throws Throwable {
 		XmlElement t = new XmlElement("foo");
 		XmlElement m = t.addSubElement("m");
@@ -156,7 +174,7 @@ public class XmlElementTest {
 		assertEquals(m,c.getParent());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_17_1372() throws Throwable {
 		XmlElement e = new XmlElement();
 		XmlElement o = new XmlElement();
@@ -166,14 +184,14 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_18_1373() throws Throwable {
 		XmlElement e = new XmlElement("abc","def");
 		assertEquals("abc",e.getName());
 		assertEquals("def",e.getData());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_19_1375() throws Throwable {
 		XmlElement p = new XmlElement("a");
 		XmlElement m = p.addSubElement("m","abc");
@@ -183,7 +201,7 @@ public class XmlElementTest {
 		assertEquals(p,ret.getParent());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_20_1382() throws Throwable {
 		XmlElement e = new XmlElement();
 		e.setData("potatoes");
@@ -198,12 +216,12 @@ public class XmlElementTest {
 		assertEquals(hashCode, e.hashCode());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_21_1383() throws Throwable {
 		assertFalse((new XmlElement()).equals(null));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_22_1384() throws Throwable {
 		XmlElement a = new XmlElement();
 		XmlElement b = new XmlElement();
@@ -220,7 +238,7 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_23_1386() throws Throwable {
 		XmlElement a = new XmlElement("loollers","lols");
 		a.addSubElement("a.b.c.e.q");
@@ -228,7 +246,7 @@ public class XmlElementTest {
 		assertEquals(a,c);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_24_1387() throws Throwable {
 		String name = "John";
 		XmlElement obj = new XmlElement();
@@ -241,7 +259,7 @@ public class XmlElementTest {
 		assertEquals(null, obj.addAttribute(null, null));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_25_1388() throws Throwable {
 		String name = "John";
 		XmlElement obj = new XmlElement(name,(String)null);
@@ -253,7 +271,7 @@ public class XmlElementTest {
 		obj.clone();
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_26_1406() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement obj1 = new XmlElement();
@@ -262,7 +280,7 @@ public class XmlElementTest {
 		assertSame(e1, e2);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_27_1407() throws Throwable {
 		XmlElement obj = new XmlElement();
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>(10);
@@ -278,7 +296,7 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_28_1409() throws Throwable {
         String name_ = "name";
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>(10);
@@ -293,7 +311,7 @@ public class XmlElementTest {
 		obj2.data="";
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_29_1410() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement.printNode(obj, (String)null);
@@ -311,7 +329,7 @@ public class XmlElementTest {
 		assertNotSame(obj3, obj4);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_30_1411() throws Throwable {
 		XmlElement obj = new XmlElement();
 		java.util.Hashtable<String, String> hashtable = new java.util.Hashtable<String, String>();
@@ -323,7 +341,7 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_31_1412() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement cobj1 = new XmlElement();
@@ -335,7 +353,7 @@ public class XmlElementTest {
 		obj.removeElement(0);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_32_1413() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement cobj1 = new XmlElement();
@@ -348,7 +366,7 @@ public class XmlElementTest {
 	      } catch(ArrayIndexOutOfBoundsException e) {}
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_33_1423() throws Throwable {
 		XmlElement foo = new XmlElement();
 		foo.addSubElement("lol.poo.bum");
@@ -357,7 +375,7 @@ public class XmlElementTest {
 		assertEquals(foo.getElement(".lol.poo"),foo.getElement("lol.poo"));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_34_1427() throws Throwable {
 		XmlElement foo = new XmlElement("fuck");
 		XmlElement child = new XmlElement("shit","cunt");
@@ -369,7 +387,7 @@ public class XmlElementTest {
 		//assertEquals(2, foo.subElements.size());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_35_1429() throws Throwable {
 		XmlElement anus = new XmlElement();
 		XmlElement poop = anus.addSubElement("shit","fuck");
@@ -377,13 +395,13 @@ public class XmlElementTest {
 		assertEquals("shit", poop.name);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_36_1431() throws Throwable {
 		assertEquals(2,XmlElement.class.getDeclaredMethod("equals",Object.class,Object.class).getModifiers());
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_37_1434() throws Throwable {
 		XmlElement a = new XmlElement("a");
 		XmlElement b = new XmlElement("a");
@@ -395,18 +413,18 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_38_1437() throws Throwable {
 		XmlElement a = new XmlElement("arse", (java.util.Hashtable)null);
 		assertEquals("arse", a.name);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_39_1438() throws Throwable {
 		assertEquals("", new XmlElement("abc").data);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_40_1439() throws Throwable {
 		XmlElement a = new XmlElement("a");
 		XmlElement b = new XmlElement("a");
@@ -417,7 +435,7 @@ public class XmlElementTest {
 		assertNotEquals(a,b);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_41_1440() throws Throwable {
 		XmlElement foo = new XmlElement();
 		assertFalse(foo.equals(null));
@@ -425,7 +443,7 @@ public class XmlElementTest {
 		
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_42_1441() throws Throwable {
 		XmlElement obj1 = new XmlElement();
 		obj1.attributes = new java.util.Hashtable<String, String>(10);
@@ -434,7 +452,7 @@ public class XmlElementTest {
 		assertSame(e2, e1);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_43_1442() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement obj1 = new XmlElement();
@@ -443,7 +461,7 @@ public class XmlElementTest {
 		assertEquals(null,obj1.getParent());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_44_1443() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement obj1 = new XmlElement("this");
@@ -452,7 +470,7 @@ public class XmlElementTest {
 		assertEquals("this", obj.getElement(0).name);
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_45_1444() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement o1 = new XmlElement();
@@ -468,7 +486,7 @@ public class XmlElementTest {
 	      } catch(NullPointerException e) {}
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_46_1445() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement obj1 = new XmlElement();
@@ -484,21 +502,21 @@ public class XmlElementTest {
 		assertEquals("Leeds",obj1.getAttribute("Sam"));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_47_1446() throws Throwable {
 		XmlElement obj = new XmlElement();
 		XmlElement obj1 = new XmlElement("a","b");
 		assertEquals(obj1,obj.addSubElement("a", "b"));
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_48_1448() throws Throwable {
 		XmlElement obj = new XmlElement();
 		obj.setAttributes(new java.util.Hashtable<String, String>(10));
 		assertEquals(obj.attributes.keys(),obj.getAttributeNames());
 	}
 
-	@Test(timeout = 4000)
+	@Test(timeout = MAX_VALUE)
 	public void test_49_1449() throws Throwable {
 		XmlElement obj = new XmlElement();
 		obj.attributes = new java.util.Hashtable<String, String>(10);
